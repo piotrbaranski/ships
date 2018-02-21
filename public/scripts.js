@@ -5,15 +5,11 @@ var view = {
     var messageArea = document.getElementById('messageArea');
     messageArea.innerHTML = message;
   },
-  displayHit: function (location) {
+  displayHitOrMiss: function (location, attempt) {
     var cell = document.getElementById(location);
-    cell.setAttribute('class', 'hit');
-  },
-  displayMiss: function (location) {
-    var cell = document.getElementById(location);
-    cell.setAttribute('class', 'miss');
+    cell.setAttribute('class', attempt);
   }
-}
+};
 
 //This object is responsible for ship tracking: where ships are, if they are hit and if a player did not sunk them
 
@@ -36,7 +32,7 @@ var model = {
         return true;
       } else if (index >= 0) {
         ship.hits[index] = 'hit';
-        view.displayHit(guess);
+        view.displayHitOrMiss(guess, 'hit');
         view.displayMessage('TRAFIONY!');
         if (this.isSunk(ship)) {
           view.displayMessage('Zatopiłeś mój okręt!');
@@ -45,7 +41,7 @@ var model = {
         return true;
       }
     }
-    view.displayMiss(guess);
+    view.displayHitOrMiss(guess, 'miss');
     view.displayMessage('PUDŁO!')
     return false;
   },
@@ -118,7 +114,7 @@ var controller = {
     if (guess === null || guess.length !== 2) {
       alert('Ups, proszę wpisać literę i cyfrę.');
     } else {
-      var firstChar = guess.charAt(0);
+      var firstChar = guess.charAt(0).toUpperCase();
       var row = alphabet.indexOf(firstChar);
       var column = guess.charAt(1);
       if (isNaN(row) || isNaN(column)) {
