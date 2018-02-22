@@ -1,3 +1,5 @@
+var guessInput = document.getElementById('guessInput');
+
 //This object is responsible for view actualization: displaying successful hits, missed hits and messages
 
 var view = {
@@ -132,17 +134,13 @@ var controller = {
 function init() {
   var fireButton = document.getElementById('fireButton');
   fireButton.onclick = handleFireButton;
-  var guessInput = document.getElementById('guessInput');
   guessInput.onkeypress = handleKeyPress;
-
   model.generateShipLocations();
 }
 
 function handleFireButton() {
-  var guessInput = document.getElementById('guessInput');
   var guess = guessInput.value;
   controller.processGuesses(guess);
-
   guessInput.value = '';
 }
 
