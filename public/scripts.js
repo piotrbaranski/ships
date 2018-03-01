@@ -26,10 +26,11 @@ var model = {
     {locations: [0, 0, 0], hits: ['', '', '']}
   ],
   fire: function (guess) {
+    var cell = document.getElementById(guess);
     for (var i = 0; i < this.numShips; i++) {
       var ship = this.ships[i];
       var index = ship.locations.indexOf(guess);
-      if (ship.hits[index] === 'hit') {
+      if (ship.hits[index] === 'hit' || cell.className === 'miss') {
         view.displayMessage('Ups, już wcześniej trafiłeś to pole!');
         return true;
       } else if (index >= 0) {
